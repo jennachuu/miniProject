@@ -1,6 +1,6 @@
 //MovieDetail.jsx
 import React, { useState } from 'react';
-import movieDetailData from '../data/movieDetailData.json'; 
+import movieDetailData from '../assets/data/movieDetailData.json'; 
 
 const MovieDetail = () => {
   const [movie, setMovie] = useState(movieDetailData); 

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import MovieCard from '../components/MovieCard'; 
-import movieListData from '../data/movieListData.json'; 
+import movieListData from '../assets/data/movieListData.json'; 
 import '../App.css';
 
 const MovieList = () => {
