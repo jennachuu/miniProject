@@ -1,10 +1,29 @@
-//MovieDetail.jsx
-import React, { useState } from 'react';
-import movieDetailData from '../assets/data/movieDetailData.json'; 
+
+// MovieDetail.jsx
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'; 
+import '../css/MovieDetail.css';
 
 const MovieDetail = () => {
-  const [movie, setMovie] = useState(movieDetailData); 
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w500"; 
+  const { id } = useParams(); 
+  const [movie, setMovie] = useState(null); 
+  const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+  const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+
+  useEffect(() => {
+    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=ko-KR`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMovie(data); 
+      })
+      .catch((error) => {
+        console.error('Error fetching movie details:', error);
+      });
+  }, [id, apiKey]);
+
+  if (!movie) {
+    return <div>Loading...</div>; 
+  }
 
   return (
     <div className="movie-detail">
@@ -26,7 +45,8 @@ const MovieDetail = () => {
           <p>{movie.overview}</p>
         </div>
       </div>
-      </div>
+    </div>
+
   );
 };
 

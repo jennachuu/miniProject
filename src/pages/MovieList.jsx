@@ -1,29 +1,35 @@
-//MovieList.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
-import MovieCard from '../components/MovieCard'; 
-import movieListData from '../assets/data/movieListData.json'; 
-import '../App.css';
+
+// MovieList.jsx
+import React, { useState, useEffect } from 'react';
+import MovieCard from '../components/MovieCard';
+import '../css/MovieList.css';
 
 const MovieList = () => {
-  const [movies] = useState(movieListData.results || []);
-  const navigate = useNavigate();
+  const [movies, setMovies] = useState([]);
+  const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
-  
-  const handleCardClick = () => {
-    navigate('/details'); 
-  };
+  useEffect(() => {
+    // TMDb API 호출
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR&page=1`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMovies(data.results); 
+      })
+      .catch((error) => {
+        console.error('Error fetching movies:', error);
+      });
+  }, [apiKey]);
 
   return (
     <div className="movie-list">
       {movies.map((movie) => (
-        <div key={movie.id} onClick={handleCardClick}>
-          <MovieCard
-            title={movie.title}
-            posterPath={movie.poster_path}
-            voteAverage={movie.vote_average}
-          />
-        </div>
+        <MovieCard
+          key={movie.id}
+          id={movie.id} 
+          title={movie.title}
+          posterPath={movie.poster_path}
+          voteAverage={movie.vote_average}
+        />
       ))}
     </div>
   );
