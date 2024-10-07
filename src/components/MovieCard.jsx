@@ -1,13 +1,18 @@
 // MovieCard.jsx
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 const MovieCard = ({ id, title, posterPath, voteAverage }) => {
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
-  const navigate = useNavigate();
+  
+
+  const imageBaseUrl = "https://image.tmdb.org/t/p/w500"; 
+
+
+  const navigate = useNavigate(); 
+
 
   const handleCardClick = () => {
-    navigate(`/details/${id}`);
+    navigate(`/details/${id}`); 
   };
 
   return (
@@ -23,4 +28,5 @@ const MovieCard = ({ id, title, posterPath, voteAverage }) => {
   );
 };
 
-export default MovieCard;
+export default MovieCard; 
+
